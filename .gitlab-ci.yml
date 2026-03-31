@@ -1,0 +1,30 @@
+stages:
+  - validate
+  - drift-detection
+
+validate:spec-index:
+  stage: validate
+  image: python:3.13-alpine@sha256:bb1f2fdb1065c85468775c9d680dcd344f6442a2d1181ef7916b60a623f11d40
+  before_script:
+    - apk add --no-cache git
+    - pip install -q 'pyyaml==6.0.3'
+  script:
+    - python3 .claude/skills/spec/scripts/generate_index.py
+    - git diff --exit-code docs/specs/INDEX.md
+
+validate:adr-index:
+  stage: validate
+  image: python:3.13-alpine@sha256:bb1f2fdb1065c85468775c9d680dcd344f6442a2d1181ef7916b60a623f11d40
+  before_script:
+    - apk add --no-cache git
+    - pip install -q 'pyyaml==6.0.3'
+  script:
+    - python3 .claude/skills/adr/scripts/generate_index.py
+    - git diff --exit-code docs/decisions/INDEX.md
+
+anchor-watch:
+  stage: drift-detection
+  image: registry.gitlab.com/boomshadow/anchor-watch-image@sha256:27fed2c241920c9c51e650fc0cba8d46cc0fda68a909ad0198d40b0944f7f15f
+  script:
+    - node .claude/agents/scripts/ci-drift-detector.mjs
+  allow_failure: false
