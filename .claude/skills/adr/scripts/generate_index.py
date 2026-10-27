@@ -111,10 +111,8 @@ def main() -> int:
 
     adr_files = sorted(DECISIONS_DIR.glob("ADR-*.md"))
     if not adr_files:
-        index_content = generate_index([])
-        INDEX_PATH.write_text(index_content, encoding="utf-8")
-        print(f"Generated {INDEX_PATH} with 0 entries (no ADR files found).")
-        return 0
+        print("No ADR files found.", file=sys.stderr)
+        return 1
 
     entries, errors, warnings = validate_adrs(adr_files)
 

@@ -4,3 +4,4 @@
 
 | Number | Title | Description | Status | Tags |
 |--------|-------|-------------|--------|------|
+| [ADR-001](ADR-001-read-only-drift-detector-tools.md) | CI Drift Detector Runs with a Fixed, Read-Only Tool Set | The CI drift detector agent is given exactly four tools (Read, Glob, Grep, Bash), only git diff, git log and git show are pre-approved, and every other action is denied without asking. An auto-approve list alone was rejected because it leaves 24 tools available, including file writes and web access; a deny list was rejected because it still leaves 19 tools and does not cover tools added in later SDK versions; removing curl from the image was rejected because node, git and bash can all reach the network. | accepted | ci, drift-detection, security, least-privilege, agent-sdk, permissions, prompt-injection |
