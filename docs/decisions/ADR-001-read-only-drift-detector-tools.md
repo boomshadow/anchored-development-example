@@ -9,7 +9,7 @@ tags: [ci, drift-detection, security, least-privilege, agent-sdk, permissions, p
 
 ## Context
 
-The drift detector (see SPEC-000, "Drift Detection") runs as the `anchor-watch` CI job on every push. It is an AI agent that reads untrusted text: the merge request diff, and any repository file it chooses to open. Anyone who can open a merge request controls part of that text, so it can carry instructions aimed at the agent.
+The drift detector (see SPEC-000, "Drift Detection") runs as the `anchor-watch` CI job on every merge request. It is an AI agent that reads untrusted text: the merge request diff, and any repository file it chooses to open. Anyone who can open a merge request controls part of that text, so it can carry instructions aimed at the agent.
 
 The job runs with secrets in its environment — the Claude API token and the GitLab CI job token. An agent that can be steered by injected text and can also write files, run arbitrary commands, or reach the network is a path for those secrets to leave the job, or for the job to tamper with the repository.
 
