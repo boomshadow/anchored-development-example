@@ -53,7 +53,7 @@ docker run --rm -v "$(pwd):/workspace" -w /workspace python:alpine sh -c "pip in
 
 ### What It Does
 
-1. **Validates** all `ADR-*.md` files in `docs/decisions/` — checks filename format, YAML frontmatter presence, required fields (`title`, `description`, `status`, `tags`), status values, and required body sections (`Context`, `Decision`, `Consequences`).
+1. **Validates** all `ADR-*.md` files in `docs/decisions/` — checks filename format, unique numbers, YAML frontmatter presence and parseability, required fields (`title`, `description`, `status`, `tags`), status values, that tags are a list of lowercase strings, and required body sections (`Context`, `Decision`, `Consequences`). Each problem is reported against its file, and checking continues across the remaining files.
 2. **Generates** `docs/decisions/INDEX.md` — but only if validation passes with zero errors.
 
 ### On Failure

@@ -59,7 +59,7 @@ docker run --rm -v "$(pwd):/workspace" -w /workspace python:alpine sh -c "pip in
 
 ### What It Does
 
-1. **Validates** all `SPEC-*.md` files in `docs/specs/` — checks filename format, YAML frontmatter presence, required fields (`title`, `description`, `status`, `tags`), and status values.
+1. **Validates** all `SPEC-*.md` files in `docs/specs/` — checks filename format, unique numbers, YAML frontmatter presence and parseability, required fields (`title`, `description`, `status`, `tags`), status values, and that tags are a list of lowercase strings. Each problem is reported against its file, and checking continues across the remaining files.
 2. **Generates** `docs/specs/INDEX.md` — but only if validation passes with zero errors.
 
 ### On Failure
