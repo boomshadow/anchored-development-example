@@ -12,4 +12,4 @@ This project follows [Anchored Development](docs/specs/SPEC-000-anchored-develop
 - **ADRs**: `docs/decisions/` — architectural reasoning and rejected alternatives
 - **Skills**: `.claude/skills/` — spec and adr
 - **Agents**: `.claude/agents/` — drift-detector
-- **Drift detection**: `.claude/agents/drift-detector.md` — runs in CI on every push; invoke locally to verify artifact consistency before pushing
+- **Drift detection**: `.claude/agents/drift-detector.md` — runs in CI on every merge request; invoke locally to verify artifact consistency before pushing
