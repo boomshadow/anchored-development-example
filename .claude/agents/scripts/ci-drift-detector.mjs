@@ -127,23 +127,30 @@ function buildPrompt(range, diff) {
   ].join("\n");
 }
 
+// A bold rule line marks where each block starts. GitLab's job log drops
+// empty lines, so a blank line cannot separate findings there.
+function heading(title) {
+  console.log(`\x1b[1;33m━━━━ ${title} ${"━".repeat(Math.max(4, 60 - title.length))}\x1b[0m`);
+}
+
 function formatFindings(result) {
-  if (result.findings.length === 0) {
+  const { findings } = result;
+
+  if (findings.length === 0) {
     console.log("No drift detected.");
-    if (result.summary) console.log(result.summary);
-    return;
   }
 
-  for (const f of result.findings) {
+  findings.forEach((f, i) => {
     const location = f.lines ? `${f.file}:${f.lines}` : f.file;
+    heading(`Drift finding ${i + 1} of ${findings.length}`);
     console.log(`DRIFT: ${location}`);
-    console.log(`  Affected: ${f.affected_artifact}`);
-    console.log(`  Reason: ${f.justification}`);
+    console.log(`  Affected:   ${f.affected_artifact}`);
+    console.log(`  Reason:     ${f.justification}`);
     console.log(`  Suggestion: ${f.suggestion}`);
-    console.log();
-  }
+  });
 
   if (result.summary) {
+    heading("Summary");
     console.log(result.summary);
   }
 }
