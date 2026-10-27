@@ -87,25 +87,10 @@ function determineRange(cliArgs) {
     return { base: mrBase, head: commitSha };
   }
 
-  // 3. Branch pipeline — diff against merge base with default branch
-  const branch = process.env.CI_COMMIT_BRANCH;
-  const defaultBranch = process.env.CI_DEFAULT_BRANCH;
-  if (branch && defaultBranch) {
-    if (branch === defaultBranch) {
-      // On main: diff the latest commit only
-      return { base: git("rev-parse HEAD~1"), head: git("rev-parse HEAD") };
-    }
-    // Feature branch: deepen history and fetch default branch to find merge base
-    try { git("fetch --unshallow"); } catch {}
-    git(`fetch origin ${defaultBranch}`);
-    const mergeBase = git(`merge-base origin/${defaultBranch} HEAD`);
-    return { base: mergeBase, head: git("rev-parse HEAD") };
-  }
-
-  // 4. Cannot determine — fail explicitly
+  // 3. Cannot determine — fail explicitly
   console.error(
     "Error: Cannot determine diff. Provide --base and --head, " +
-      "or run in a GitLab MR/branch pipeline.",
+      "or run in a GitLab merge request pipeline.",
   );
   process.exit(2);
 }
