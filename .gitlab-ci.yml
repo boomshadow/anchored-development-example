@@ -39,7 +39,7 @@ anchor-watch:
   # untagged the moment a newer release moves :latest, and GitLab.com garbage-collects
   # untagged manifests ~24h later -- which is exactly how this job broke before. The
   # tag keeps the manifest alive; the digest is the integrity check.
-  image: registry.gitlab.com/boomshadow-public/anchor-watch-image:4.0.1@sha256:51342c8b5ee632895a718c5bc56f763c6b1b61c4d5c1c82880e54792bd4e3c13
+  image: registry.gitlab.com/boomshadow-public/anchor-watch-image:4.0.2@sha256:eb0395c92edeac76190d87173089296b7d1dd8a4917a9d6befb34590f0268c51
   script:
     - node .claude/agents/scripts/ci-drift-detector.mjs
   allow_failure: false
